@@ -23,8 +23,11 @@
     }
 </script>
 
+
 <main class="max-w-7xl mx-auto p-6 font-sans">
-    <h1 class="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text drop-shadow-md animate-fade-in">
+    <h1
+        class="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text drop-shadow-md animate-fade-in"
+    >
         📘 BookNest
     </h1>
 
@@ -38,15 +41,36 @@
         <h2 class="text-2xl font-semibold mb-4">🛒 Your Cart</h2>
 
         {#if $cart.length > 0}
-            <ul class="list-disc ml-5 space-y-2">
-                {#each $cart as item}
-                    <li>{item.title} × {item.quantity}</li>
-                {/each}
-            </ul>
-            <p class="mt-4 text-lg font-bold">Total: ${total}</p>
+            <div
+                class="bg-white p-6 rounded-lg shadow-md border border-gray-200"
+            >
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    🛒 Your Cart
+                </h2>
+
+                <ul class="list-disc ml-6 space-y-2 text-gray-700">
+                    {#each $cart as item}
+                        <li class="flex justify-between items-center">
+                            <span>{item.title}</span>
+                            <span class="text-sm text-gray-500"
+                                >× {item.quantity}</span
+                            >
+                        </li>
+                    {/each}
+                </ul>
+
+                <p
+                    class="mt-6 text-lg font-bold text-right text-green-600 border-t pt-4"
+                >
+                    Total: ${total}
+                </p>
+            </div>
         {:else}
-            <p class="text-gray-500">Cart is empty.</p>
+            <div class="text-center text-gray-500 italic mt-6">
+                <p>🛒 Your cart is empty.</p>
+            </div>
         {/if}
+
         <button
             class="mt-4 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center gap-2"
             on:click={resetCart}
