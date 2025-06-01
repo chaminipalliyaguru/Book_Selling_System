@@ -2,9 +2,18 @@
     import "../app.css";
     import { books, cart } from "../lib/stores";
     import BookCard from "../components/BookCard.svelte";
+    import { onMount } from "svelte";
+    import { client, GET_BOOKS } from "../lib/graphql";
 
     let bookList = $state([]);
     let total = $state(0);
+    let fetchedBooks = [];
+
+    onMount(async () => {
+        const data = await client.request(GET_BOOKS);
+        fetchedBooks = data.books;
+        books.set(fetchedBooks);
+    });
 
     $effect(() => {
         bookList = $books;
