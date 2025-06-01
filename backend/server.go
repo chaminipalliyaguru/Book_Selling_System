@@ -1,11 +1,13 @@
 package main
 
 import (
+	"backend/db"
 	"backend/graph"
 	"log"
 	"net/http"
 	"os"
 
+	//"github.com/99designs/gqlgen/codegen/testserver/nullabledirectives/generated"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/lru"
@@ -17,12 +19,13 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	db.InitDB()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	srv := handler.New(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
 	srv.AddTransport(transport.Options{})
 	srv.AddTransport(transport.GET{})

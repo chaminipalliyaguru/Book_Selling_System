@@ -8,11 +8,20 @@ import (
 	"backend/graph/model"
 	"context"
 	"fmt"
+	"math/rand"
 )
 
 // CreateBook is the resolver for the createBook field.
 func (r *mutationResolver) CreateBook(ctx context.Context, input model.NewBook) (*model.Book, error) {
-	panic(fmt.Errorf("not implemented: CreateBook - createBook"))
+	book := &model.Book{
+		ID:     fmt.Sprintf("T%d", rand.Intn(1000000)),
+		Title:  input.Title,
+		Author: input.Author,
+		Price:  input.Price,
+		Image:  input.Image,
+	}
+	books = append(books, book)
+	return book, nil
 }
 
 // Mutation returns MutationResolver implementation.
@@ -27,12 +36,5 @@ type mutationResolver struct{ *Resolver }
 //    it when you're done.
 //  - You have helper methods in this file. Move them out to keep these resolver files clean.
 /*
-	func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
-}
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
-}
-func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
-type queryResolver struct{ *Resolver }
+	var books []*model.Book
 */
