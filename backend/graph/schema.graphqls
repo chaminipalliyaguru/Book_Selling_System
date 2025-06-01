@@ -11,6 +11,10 @@ type Book{
   image: String
 }
 
+type Query{
+  books: [Book!]!
+}
+
 input NewBook{
   title: String!
   author: String!
