@@ -26,6 +26,36 @@ func (r *mutationResolver) CreateBook(ctx context.Context, input model.NewBook) 
 	return book, nil
 }
 
+// UpdateBook is the resolver for the updateBook field.
+func (r *mutationResolver) UpdateBook(ctx context.Context, id string, input model.NewBook) (*model.Book, error) {
+	var book model.Book
+	if err := db.GetDB().First(&book, "id = ?", id).Error; err != nil {
+		return nil, fmt.Errorf("book with id %s not found", id)
+	}
+
+	book.Title = input.Title
+	book.Author = input.Author
+	book.Price = input.Price
+	book.Image = input.Image
+
+	if err := db.GetDB().Save(&book).Error; err != nil {
+		return nil, err
+	}
+	return &book, nil
+}
+
+// DeleteBook is the resolver for the deleteBook field.
+func (r *mutationResolver) DeleteBook(ctx context.Context, id string) (bool, error) {
+	result := db.GetDB().Delete(&model.Book{}, "id = ?", id)
+	if result.Error != nil {
+		return false, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return false, fmt.Errorf("book with id %s not found", id)
+	}
+	return true, nil
+}
+
 // Books is the resolver for the books field.
 func (r *queryResolver) Books(ctx context.Context) ([]*model.Book, error) {
 	var books []*model.Book
