@@ -1,6 +1,7 @@
 <script lang="ts">
     import "../app.css";
-    import { books, cart } from "../lib/stores";
+    // import { books, cart } from "../lib/stores";
+    import { books, cart } from "../lib/stores.js";
     import BookCard from "../components/BookCard.svelte";
     import { onMount } from "svelte";
     import { client, GET_BOOKS } from "../lib/graphql";
@@ -82,9 +83,10 @@
 
         <button
             class="mt-4 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center gap-2"
-            on:click={resetCart}
+            onclick={resetCart}
         >
             Clear Cart
         </button>
     </section>
 </main>
+
