@@ -3,6 +3,7 @@
     import BookForm from '../../components/BookForm.svelte';
     import BookTable from '../../components/BookTable.svelte';
     import { fetchBooks } from '../../lib/stores.ts';
+    import BookStats from '../../components/BookStats.svelte';
     import { onMount } from 'svelte';
 
     let editingBook: any = null;
@@ -37,5 +38,9 @@
         <BookForm {editingBook} on:clearEdit={handleClearEdit} />
     {/if}
 
-    <BookTable on:edit={handleEdit} />
+    {#if !showForm}
+        <BookStats />
+        <BookTable on:edit={handleEdit} />
+     
+    {/if}
 </main>

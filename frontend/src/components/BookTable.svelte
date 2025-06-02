@@ -15,7 +15,7 @@
     }
 
     async function deleteBook(id: string) {
-        books.update(all => all.filter(book => book.id !== id));
+      books.update(all => all.filter(book => book.id !== id));
         await fetchBooks();
     }
 
@@ -26,9 +26,9 @@
     $effect(() => {
         console.log('Books store updated:', $books);
     });
-</script>
+  </script>
   
-<table class="w-full table-auto border mt-6 bg-white shadow rounded">
+  <table class="w-full table-auto border mt-6 bg-white shadow rounded">
     <thead class="bg-gray-100">
       <tr>
         <th class="p-2">Title</th>
@@ -54,5 +54,5 @@
         </tr>
       {/each}
     </tbody>
-</table>
+  </table>
   
