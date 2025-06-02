@@ -8,9 +8,8 @@
     let form: any = {
       title: '',
       author: '',
-      isbn: '',
-      category: '',
-      price: ''
+      price: '',
+      image: ''
     };
   
     $: if (editingBook) {
@@ -28,7 +27,7 @@
     }
   
     function resetForm() {
-      form = { title: '', author: '', isbn: '', category: '', price: '' };
+      form = { title: '', author: '', price: '' , image: ''};
       dispatch('clearEdit');
     }
   </script>
@@ -39,9 +38,8 @@
     <div class="grid grid-cols-2 gap-4">
       <input class="border p-2 rounded" placeholder="Title" bind:value={form.title} />
       <input class="border p-2 rounded" placeholder="Author" bind:value={form.author} />
-      <input class="border p-2 rounded" placeholder="ISBN" bind:value={form.isbn} />
-      <input class="border p-2 rounded" placeholder="Category" bind:value={form.category} />
       <input class="border p-2 rounded" placeholder="Price" type="number" bind:value={form.price} />
+      <input class="border p-2 rounded" placeholder="Image" bind:value={form.image} />
     </div>
   
     <div class="mt-4 flex gap-2">

@@ -35,11 +35,16 @@
 
 
 <main class="max-w-7xl mx-auto p-6 font-sans">
-    <h1
-        class="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text drop-shadow-md animate-fade-in"
-    >
-        📘 BookNest
-    </h1>
+    <div class="flex justify-between items-center mb-8">
+        <h1
+            class="text-5xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text drop-shadow-md animate-fade-in"
+        >
+            📘 BookNest
+        </h1>
+        <a href="/admin" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+            Admin Panel
+        </a>
+    </div>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {#each bookList as book (book.id)}
