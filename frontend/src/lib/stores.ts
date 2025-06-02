@@ -122,3 +122,31 @@ export async function UpdateBook(book: Book) {
         console.error('Error editing book:', error);
     }
 }
+
+// Function to delete a book
+export async function deleteBook(id: string) {
+    const query = `
+        mutation DeleteBook($id: ID!) {
+            deleteBook(id: $id) 
+        }
+    `;
+
+    try {
+        const response = await fetch('http://localhost:8080/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify({ query, variables: { id } }),
+        });
+
+        const data = await response.json();
+        if (data.data?.deleteBook===true) {
+            books.update(all => all.filter(b => b.id !== id));
+        }else{
+            console.error("Delete failed:", data.errors || data);
+        }
+    } catch (error) {   
+        console.error('Error deleting book:', error);
+    }
+}

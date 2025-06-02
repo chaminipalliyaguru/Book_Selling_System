@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { books, type Book } from '../lib/stores';
+    import { books, type Book, deleteBook } from '../lib/stores';
     import { client, GET_BOOKS } from '../lib/graphql';
     import { createEventDispatcher, onMount } from 'svelte';
     const dispatch = createEventDispatcher();
@@ -14,10 +14,12 @@
         }
     }
 
-    async function deleteBook(id: string) {
-      books.update(all => all.filter(book => book.id !== id));
+    async function deleteBookFromTable(id: string) {
+      if (window.confirm("Are you sure you want to delete this book?")) {
+        deleteBook(id);
         await fetchBooks();
-    }
+      }
+  }
 
     onMount(() => {
         fetchBooks();
@@ -45,7 +47,7 @@
           <td class="p-2">${book.price}</td>
           <td class="p-2 flex gap-2">
             <button class="bg-yellow-400 text-white px-2 py-1 rounded" on:click={() => dispatch('edit', book)}>Edit</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded" on:click={() => deleteBook(book.id)}>Delete</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded" on:click={() => deleteBookFromTable(book.id)}>Delete</button>
           </td>
         </tr>
       {:else}
