@@ -78,3 +78,47 @@ export async function addBook(book: Omit<Book, 'id'>) {
         console.error('Error adding book:', error);
     }
 }
+
+// Function to edit a book
+export async function UpdateBook(book: Book) {
+    const query = `
+        mutation UpdateBook($id: ID!, $input: NewBook!) {
+            updateBook(id: $id, input: $input) {
+                id
+                title
+                author
+                price
+                image
+            }
+        }
+    `;
+
+    const variables = {
+        id: book.id,
+        input: {
+            title: book.title,
+            author: book.author,
+            price: parseFloat(book.price), 
+            image: book.image,
+        }
+    };
+
+    try {
+        const response = await fetch('http://localhost:8080/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query, variables }),
+        });
+
+        const data = await response.json();
+        if (data.data?.updateBook) {
+            books.update(all => all.map(b => b.id === book.id ? data.data.updateBook : b));
+        } else {
+            console.error("Update failed:", data.errors || data);
+        }
+    } catch (error) {
+        console.error('Error editing book:', error);
+    }
+}

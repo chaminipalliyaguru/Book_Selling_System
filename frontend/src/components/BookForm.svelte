@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { books, addBook } from "../lib/stores";
+  import { books, addBook, UpdateBook } from "../lib/stores";
   import { createEventDispatcher } from "svelte";
   export let editingBook: any = null;
 
@@ -16,9 +16,15 @@
     form = { ...editingBook };
   }
 
+  async function editBook() {
+    if (editingBook) {
+      UpdateBook(form);
+    }
+  }
+
   async function saveBook() {
     if (editingBook) {
-      books.update((all) => all.map((b) => (b.id === form.id ? form : b)));
+      editBook();
     } else {
       await addBook(form); // no need to manually assign id
     }
