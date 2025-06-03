@@ -20,8 +20,7 @@
                     <li class="flex justify-between items-center">
                         <span>{item.title}</span>
                         <span class="text-sm text-gray-500"
-                            >× {item.quantity}</span
-                        >
+                            >× {item.quantity}</span>
                     </li>
                 {/each}
             </ul>
