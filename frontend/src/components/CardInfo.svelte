@@ -20,8 +20,7 @@
                     <li class="flex justify-between items-center">
                         <span>{item.title}</span>
                         <span class="text-sm text-gray-500"
-                            >× {item.quantity}</span
-                        >
+                            >× {item.quantity}</span>
                     </li>
                 {/each}
             </ul>
@@ -34,7 +33,7 @@
         </div>
     {:else}
         <div class="text-center text-gray-500 italic mt-6">
-            <p>🛒 Your cart is empty.</p>
+            <p>🛒 Your cart is empty. You can add books to your cart by clicking the "Add to Cart" button on the book page.</p>
         </div>
     {/if}
 
@@ -42,6 +41,6 @@
         class="mt-4 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center gap-2"
         onclick={resetCart}
     >
-        Clear Cart
+        Clear Cart 🧹
     </button>
 </section>
