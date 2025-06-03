@@ -1,5 +1,9 @@
 import { writable } from 'svelte/store';
+import { GraphQLClient, gql } from "graphql-request";
 
+const API_URL = "http://localhost:8080/query";
+
+export const client = new GraphQLClient(API_URL);
 
 export interface Book {
     id: string;

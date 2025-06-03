@@ -41,9 +41,9 @@
     >
         📘 BookNest
     </h1>
-        <a href="/admin" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+        <!-- <a href="/admin" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
             Admin Panel
-        </a>
+        </a> -->
     </div>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
