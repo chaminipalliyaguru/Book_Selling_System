@@ -9,6 +9,7 @@
     let bookList = $state([]);
     let total = $state(0);
     let fetchedBooks = [];
+    let showCart = $state(false);
 
     onMount(async () => {
         const data = await client.request(GET_BOOKS);
@@ -41,6 +42,15 @@
     >
         📘 BookNest
     </h1>
+
+    <button onclick={() => showCart = !showCart}>
+        🛒
+    </button>
+
+    {#if showCart}
+        <CardInfo {total} {resetCart} />
+    {/if}
+    
     </div>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -49,6 +59,6 @@
         {/each}
     </section>
 
-    <CardInfo {total} {resetCart} />
+    
 </main>
 
