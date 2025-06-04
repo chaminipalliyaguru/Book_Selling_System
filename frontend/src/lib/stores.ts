@@ -13,6 +13,7 @@ export interface Book {
     image: string;
 }
 
+
 export const books = writable<Book[]>([]);
 export const cart = writable<Book[]>([]);
 

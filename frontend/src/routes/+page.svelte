@@ -1,6 +1,6 @@
 <script lang="ts">
     import "../app.css";
-    import { books, cart, fetchBooks } from "../lib/stores.ts";
+    import { books, cart, fetchBooks } from "../lib/stores";
     import BookCard from "../components/BookCard.svelte";
     import { onMount } from "svelte";
     //import { client, GET_BOOKS } from "../lib/graphql";
@@ -25,10 +25,6 @@
         );
     });
 
-    function addToCart(book: Object, quantity: number) {
-        cart.update((c) => [...c, { ...book, quantity }]);
-    }
-
     function resetCart() {
         cart.set([]);
     }
@@ -43,9 +39,11 @@
         📘 BookNest
     </h1>
 
-    <button onclick={() => showCart = !showCart}>
+    <button onclick={() => showCart = !showCart} class="text-3xl">
        🛒 
+    <span class="text-sm">{$cart.length}</span>
     </button>
+     
 
     {#if showCart}
         <CardInfo {total} {resetCart} />
@@ -55,7 +53,7 @@
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {#each bookList as book (book.id)}
-            <BookCard {book} {addToCart} />
+            <BookCard {book} />
         {/each}
     </section>
 </main>
