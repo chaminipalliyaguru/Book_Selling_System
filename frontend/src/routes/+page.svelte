@@ -1,20 +1,20 @@
 <script lang="ts">
     import "../app.css";
-    import { books, cart } from "../lib/stores.js";
+    import { books, cart, fetchBooks } from "../lib/stores.ts";
     import BookCard from "../components/BookCard.svelte";
     import { onMount } from "svelte";
-    import { client, GET_BOOKS } from "../lib/graphql";
+    //import { client, GET_BOOKS } from "../lib/graphql";
     import CardInfo from "../components/CardInfo.svelte";
 
-    let bookList = $state([]);
+    //let bookList = $state([]);
+    let bookList = $state($books); 
     let total = $state(0);
     let fetchedBooks = [];
     let showCart = $state(false);
 
     onMount(async () => {
-        const data = await client.request(GET_BOOKS);
-        fetchedBooks = data.books;
-        books.set(fetchedBooks);
+        await fetchBooks();
+        bookList = $books;
     });
 
     $effect(() => {
@@ -58,7 +58,5 @@
             <BookCard {book} {addToCart} />
         {/each}
     </section>
-
-    
 </main>
 
