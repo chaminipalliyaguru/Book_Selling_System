@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { books, type Book, deleteBook } from '../lib/stores';
+    import { books, type Book, deleteBook} from '../lib/stores';
     import { client, GET_BOOKS } from '../lib/graphql';
     import { createEventDispatcher, onMount } from 'svelte';
     const dispatch = createEventDispatcher();
 
-    async function fetchBooks() {
+      async function fetchBooks() {
         try {
             const data = await client.request(GET_BOOKS) as { books: Book[] };
             console.log('Fetched books:', data.books);
