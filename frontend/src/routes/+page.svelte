@@ -44,7 +44,7 @@
     </h1>
 
     <button onclick={() => showCart = !showCart}>
-        🛒
+       🛒 
     </button>
 
     {#if showCart}

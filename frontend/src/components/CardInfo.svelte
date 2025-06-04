@@ -27,24 +27,27 @@
                 Total: ${total}
             </p>
         </div>
+        
+        <div class="flex justify-between items-center">
+            <button
+                class="mt-4 w-1/3 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center justify-center gap-2"
+                onclick={resetCart}
+            >
+                Clear
+            </button>
+            <button
+                class="mt-4 w-1/3 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center justify-center gap-2"
+                onclick={resetCart}
+            >
+                    Pay
+                </button>
+            </div>
+
     {:else}
         <div class="text-center text-gray-500 italic mt-6">
             <p>🛒 Your cart is empty. You can add books to your cart by clicking the "Add to Cart" button on the book page.</p>
         </div>
     {/if}
 
-    <div class="flex justify-between items-center">
-    <button
-        class="mt-4 w-1/3 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center justify-center gap-2"
-        onclick={resetCart}
-    >
-        Clear
-    </button>
-    <button
-        class="mt-4 w-1/3 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors duration-200 flex items-center justify-center gap-2"
-        onclick={resetCart}
-    >
-            Pay
-        </button>
-    </div>
+    
 </section>
