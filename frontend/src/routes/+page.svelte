@@ -1,9 +1,10 @@
 <script lang="ts">
     import "../app.css";
-    import { books, cart, fetchBooks } from "../lib/stores";
+    import { books, cart, fetchBooks, favoriteBooks } from "../lib/stores";
     import BookCard from "../components/BookCard.svelte";
     import { onMount } from "svelte";
     import CardInfo from "../components/CardInfo.svelte";
+    import FavoriteBook from "../components/FavoriteBook.svelte";
 
     let bookList = $state($books); 
     let total = $state(0);
@@ -27,6 +28,10 @@
     function resetCart() {
         cart.set([]);
     }
+
+    function closeFavoriteBook() {
+        showFavorites = false;
+    }
 </script>
 
 
@@ -44,12 +49,16 @@
     <span class="text-sm">{$cart.length}</span>
     </button>
 
-    <button onclick={() => showFavorites = !showFavorites} style="width: 30px; height: 30px;">
+    <button onclick={() => showFavorites = !showFavorites} style="width: 30px; height: 30px;" class="relative">
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="gray" stroke-width="2" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
 		  <path stroke-linecap="round" stroke-linejoin="round" d="M3.172 5.172a4 4 0 015.656 0L12 8.343l3.172-3.171a4 4 0 115.656 5.656L12 21.343 3.172 10.828a4 4 0 010-5.656z"/>
 		</svg>
 	</button>
     </div>
+
+    {#if showFavorites}
+        <FavoriteBook showFavorites={showFavorites} closeFavorites={closeFavoriteBook} />
+        {/if}
      
     {#if showCart}
         <CardInfo {total} {resetCart} />

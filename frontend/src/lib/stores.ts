@@ -16,7 +16,7 @@ export interface Book {
 
 export const books = writable<Book[]>([]);
 export const cart = writable<Book[]>([]);
-
+export const favoriteBooks = writable<Book[]>([]);
 // Function to fetch books from the GraphQL API
 export async function fetchBooks() {
     const query = `
