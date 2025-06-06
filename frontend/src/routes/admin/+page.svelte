@@ -1,4 +1,4 @@
-   <script lang="ts">
+   <script lang="ts">   
     import "../../app.css";
     import BookForm from '../../components/BookForm.svelte';
     import BookTable from '../../components/BookTable.svelte';
@@ -8,6 +8,7 @@
 
     let editingBook: any = null;
     let showForm = false;
+    let isLoggedIn = false;
 
     onMount(() => {
         fetchBooks();
@@ -22,9 +23,11 @@
         editingBook = null;
         showForm = false;
     }
+
 </script>
 
 <main class="p-6">
+
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">📘 Book Admin Panel</h1>
         <button 
@@ -41,6 +44,5 @@
     {#if !showForm}
         <BookStats />
         <BookTable on:edit={handleEdit} />
-     
     {/if}
 </main>
