@@ -155,3 +155,29 @@ export async function deleteBook(id: string) {
         console.error('Error deleting book:', error);
     }
 }
+
+export async function login(username: string, password: string) {
+    const query = `
+        mutation Login($username: String!, $password: String!) {
+            login(username: $username, password: $password)
+        }
+    `;
+    const variables = {
+        username,
+        password
+    };
+    const response = await fetch('http://localhost:8080/query', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query, variables }),
+    });
+
+    const data = await response.json();
+    if (data.data?.login) {
+        localStorage.setItem('token', data.data.login);
+    } else {
+        console.error("Login failed:", data.errors || data);
+    }
+}

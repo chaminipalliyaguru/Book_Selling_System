@@ -1,27 +1,40 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { login } from '$lib/stores';
 
-	let email = '';
+	let username = '';
 	let password = '';
 	let error = '';
 	let loading = false;
     let isLoggedIn = false;
 
-	function handleLogin() {
+	// async function handleLogin() {
+	// 	loading = true;
+	// 	error = '';
+
+	// 	// Fake login check
+	// 	setTimeout(() => {
+	// 		if (username === 'admin@example.com' && password === 'admin123') {
+	// 			alert('Login successful!');
+    //             isLoggedIn = true;
+	// 			goto('/admin');
+	// 		} else {
+	// 			error = 'Invalid email or password.';
+	// 		}
+	// 		loading = false;
+	// 	}, 1000);
+	// }
+
+	async function handleLogin() {
 		loading = true;
 		error = '';
-
-		// Fake login check
-		setTimeout(() => {
-			if (email === 'admin@example.com' && password === 'admin123') {
-				alert('Login successful!');
-                isLoggedIn = true;
-				goto('/admin');
-			} else {
-				error = 'Invalid email or password.';
-			}
-			loading = false;
-		}, 1000);
+		try {
+			await login(username, password);
+			goto('/admin');
+		} catch (error) {
+			error = 'Invalid username or password.';
+		}
+		loading = false;
 	}
 
 </script>
@@ -35,12 +48,14 @@
 		{/if}
 
 		<div class="space-y-4">
+			<form on:submit|preventDefault={handleLogin}>
 			<div>
+				
 				<label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
 				<input
 					id="email"
 					type="email"
-					bind:value={email}
+					bind:value={username}
 					class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition"
 					placeholder="admin@example.com"
 				/>
@@ -64,6 +79,7 @@
 			>
 				{loading ? 'Logging in...' : 'Login'}
 			</button>
+			</form>
 		</div>
 	</div>
     
