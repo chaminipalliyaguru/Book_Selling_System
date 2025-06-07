@@ -7,6 +7,7 @@ package graph
 import (
 	"backend/db"
 	"backend/graph/model"
+	"backend/login"
 	"context"
 	"fmt"
 	"math/rand"
@@ -54,6 +55,18 @@ func (r *mutationResolver) DeleteBook(ctx context.Context, id string) (bool, err
 		return false, fmt.Errorf("book with id %s not found", id)
 	}
 	return true, nil
+}
+
+// Login is the resolver for the login field.
+func (r *mutationResolver) Login(ctx context.Context, username string, password string) (string, error) {
+	if username == "Chek" && password == "123456" {
+		tokenString, err := login.CreateToken(username)
+		if err != nil {
+			return "", err
+		}
+		return tokenString, nil
+	}
+	return "", fmt.Errorf("invalid username or password")
 }
 
 // Books is the resolver for the books field.

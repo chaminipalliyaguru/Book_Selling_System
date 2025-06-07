@@ -10,6 +10,10 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/rs/cors"
 
+
+	"github.com/gorilla/mux"
+
+
 	"github.com/99designs/gqlgen/graphql/playground"
 )
 
@@ -24,16 +28,23 @@ func main() {
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
+	router := mux.NewRouter()
+	
+	// GraphQL routes
+	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/query", srv)
+
+	// Enable CORS
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173"}, // Your frontend URL
+		AllowedOrigins:   []string{"http://localhost:5173"},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type", "Authorization"},
 	})
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", c.Handler(srv))
+	// Wrap router with CORS middleware
+	handlerWithCORS := c.Handler(router)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, handlerWithCORS))
 }
