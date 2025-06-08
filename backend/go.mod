@@ -6,6 +6,8 @@ toolchain go1.24.3
 
 require (
 	github.com/99designs/gqlgen v0.17.73
+	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/gorilla/mux v1.8.1
 	github.com/rs/cors v1.11.1
 	github.com/vektah/gqlparser/v2 v2.5.26
 	gorm.io/driver/sqlite v1.5.7

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cart } from "../lib/stores";
+	import { cart, favoriteBooks } from "../lib/stores";	
 	import type { Book } from "../lib/stores";
 
 	let { book } = $props();
@@ -10,6 +10,10 @@
 	function addToCart(book: Book, quantity: number) {
         cart.update((c) => [...c, { ...book, quantity }]);
     }
+
+	function addToFavorites(book: Book) {
+		favoriteBooks.update((f) => [...f, book]);
+	}
 
 </script>
 
@@ -37,7 +41,7 @@
 	
 	<button style="width: 30px; height: 30px;" 
 		on:click={() => {
-			addToCart(book, quantity);
+			addToFavorites(book);
 		}}
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="gray" stroke-width="2" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
