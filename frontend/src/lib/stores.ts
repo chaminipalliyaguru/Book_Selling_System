@@ -170,14 +170,14 @@ export async function deleteBook(id: string) {
   }
 }
 
-export async function login(username: string, password: string) {
+export async function login(email: string, password: string) {
   const query = `
-        mutation Login($username: String!, $password: String!) {
-            login(username: $username, password: $password)
+        mutation Login($email: String!, $password: String!) {
+            login(email: $email, password: $password)
         }
     `;
   const variables = {
-    username,
+    email,
     password,
   };
   const response = await fetch("http://localhost:8080/query", {
@@ -193,7 +193,5 @@ export async function login(username: string, password: string) {
 
   if (!data.data?.login) throw new Error("Login failed");
 
-
   localStorage.setItem("token", data.data.login);
 }
-

@@ -26,6 +26,6 @@ type Mutation{
   createBook(input: NewBook!): Book!
   updateBook(id: ID!, input: NewBook!): Book!
   deleteBook(id: ID!): Boolean!
-  login(username: String!, password: String!): String!
+  login(email: String!, password: String!): String!
 }
 

@@ -58,7 +58,7 @@ type ComplexityRoot struct {
 	Mutation struct {
 		CreateBook func(childComplexity int, input model.NewBook) int
 		DeleteBook func(childComplexity int, id string) int
-		Login      func(childComplexity int, username string, password string) int
+		Login      func(childComplexity int, email string, password string) int
 		UpdateBook func(childComplexity int, id string, input model.NewBook) int
 	}
 
@@ -71,7 +71,7 @@ type MutationResolver interface {
 	CreateBook(ctx context.Context, input model.NewBook) (*model.Book, error)
 	UpdateBook(ctx context.Context, id string, input model.NewBook) (*model.Book, error)
 	DeleteBook(ctx context.Context, id string) (bool, error)
-	Login(ctx context.Context, username string, password string) (string, error)
+	Login(ctx context.Context, email string, password string) (string, error)
 }
 type QueryResolver interface {
 	Books(ctx context.Context) ([]*model.Book, error)
@@ -165,7 +165,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.Login(childComplexity, args["username"].(string), args["password"].(string)), true
+		return e.complexity.Mutation.Login(childComplexity, args["email"].(string), args["password"].(string)), true
 
 	case "Mutation.updateBook":
 		if e.complexity.Mutation.UpdateBook == nil {
@@ -360,11 +360,11 @@ func (ec *executionContext) field_Mutation_deleteBook_argsID(
 func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := ec.field_Mutation_login_argsUsername(ctx, rawArgs)
+	arg0, err := ec.field_Mutation_login_argsEmail(ctx, rawArgs)
 	if err != nil {
 		return nil, err
 	}
-	args["username"] = arg0
+	args["email"] = arg0
 	arg1, err := ec.field_Mutation_login_argsPassword(ctx, rawArgs)
 	if err != nil {
 		return nil, err
@@ -372,12 +372,12 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	args["password"] = arg1
 	return args, nil
 }
-func (ec *executionContext) field_Mutation_login_argsUsername(
+func (ec *executionContext) field_Mutation_login_argsEmail(
 	ctx context.Context,
 	rawArgs map[string]any,
 ) (string, error) {
-	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("username"))
-	if tmp, ok := rawArgs["username"]; ok {
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+	if tmp, ok := rawArgs["email"]; ok {
 		return ec.unmarshalNString2string(ctx, tmp)
 	}
 
@@ -982,7 +982,7 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().Login(rctx, fc.Args["username"].(string), fc.Args["password"].(string))
+		return ec.resolvers.Mutation().Login(rctx, fc.Args["email"].(string), fc.Args["password"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
