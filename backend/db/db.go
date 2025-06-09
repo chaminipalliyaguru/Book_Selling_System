@@ -22,3 +22,4 @@ func InitDB() {
 func GetDB() *gorm.DB {
 	return DB
 }
+

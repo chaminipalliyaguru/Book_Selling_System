@@ -170,31 +170,6 @@ export async function deleteBook(id: string) {
   }
 }
 
-// export async function login(email: string, password: string) {
-//   const query = `
-//         mutation Login($email: String!, $password: String!) {
-//             login(email: $email, password: $password)
-//         }
-//     `;
-//   const variables = {
-//     email,
-//     password,
-//   };
-//   const response = await fetch("http://localhost:8080/query", {
-//     method: "POST",
-//     // headers: {
-//     //     'Content-Type': 'application/json',
-//     // },
-//     headers: getAuthHeaders(),
-//     body: JSON.stringify({ query, variables }),
-//   });
-
-//   const data = await response.json();
-
-//   if (!data.data?.login) throw new Error("Login failed");
-
-//   localStorage.setItem("token", data.data.login);
-// }
 
 export async function login(email: string, password: string) {
   const response = await fetch("/api/login", {
