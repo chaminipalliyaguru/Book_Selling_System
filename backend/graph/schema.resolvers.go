@@ -57,6 +57,15 @@ func (r *mutationResolver) DeleteBook(ctx context.Context, id string) (bool, err
 	return true, nil
 }
 
+// Books is the resolver for the books field.
+func (r *queryResolver) Books(ctx context.Context) ([]*model.Book, error) {
+	var books []*model.Book
+	if err := db.GetDB().Find(&books).Error; err != nil {
+		return nil, err
+	}
+	return books, nil
+}
+
 // Login is the resolver for the login field.
 func (r *mutationResolver) Login(ctx context.Context, email string, password string) (string, error) {
 	var admin model.Admin
@@ -71,15 +80,6 @@ func (r *mutationResolver) Login(ctx context.Context, email string, password str
 		return "", err
 	}
 	return tokenString, nil
-}
-
-// Books is the resolver for the books field.
-func (r *queryResolver) Books(ctx context.Context) ([]*model.Book, error) {
-	var books []*model.Book
-	if err := db.GetDB().Find(&books).Error; err != nil {
-		return nil, err
-	}
-	return books, nil
 }
 
 // Mutation returns MutationResolver implementation.
