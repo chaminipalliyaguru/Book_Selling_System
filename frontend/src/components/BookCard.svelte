@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="p-4 mt-24 border rounded-md shadow-sm bg-white flex flex-col items-center text-center">
+<div class="p-4 mt-10 border rounded-md shadow-sm bg-white flex flex-col items-center text-center">
 	<img src={book.image} alt={book.title} class="w-40 h-60 object-cover mb-3 rounded shadow-md" />
 	<h2 class="text-lg font-bold mb-1">{book.title}</h2>
 	<p class="text-gray-600 mb-1">{book.author}</p>
