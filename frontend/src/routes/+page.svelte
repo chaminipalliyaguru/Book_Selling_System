@@ -6,6 +6,7 @@
   import CardInfo from "../components/CardInfo.svelte";
   import FavoriteBook from "../components/FavoriteBook.svelte";
 
+  
   let bookList = $state($books);
   let total = $state(0);
   // let fetchedBooks = []; // This variable is not used, can be removed if not needed elsewhere
