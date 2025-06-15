@@ -13,7 +13,6 @@
   let showCart = $state(false);
   let showFavorites = $state(false);
   let showSelection = $state(false);
-  let priceLimit = $state({ min: 0, max: 100 });
 
   onMount(async () => {
     await fetchBooks();
@@ -54,6 +53,9 @@
     { min: 80, max: 90, label: "80-90" },
     { min: 90, max: 100, label: "90-100" },
   ];
+
+  let priceLimit = $state(priceOptions[0]);
+  
 </script>
 
 <main class="max-w-7xl mx-auto p-6 font-sans">
