@@ -42,19 +42,22 @@
   }
 
   const priceOptions = [
-    { min: 0, max: 100, label: "All" },
-    { min: 10, max: 20, label: "10-20" },
-    { min: 20, max: 30, label: "20-30" },
-    { min: 30, max: 40, label: "30-40" },
-    { min: 40, max: 50, label: "40-50" },
-    { min: 50, max: 60, label: "50-60" },
-    { min: 60, max: 70, label: "60-70" },
-    { min: 70, max: 80, label: "70-80" },
-    { min: 80, max: 90, label: "80-90" },
-    { min: 90, max: 100, label: "90-100" },
+    { min: 0, max: Infinity, label: "All" },
+    { min: 100, max: 500, label: "100-500" },
+    { min: 500, max: 1000, label: "500-1000" },
+    { min: 1000, max: 2000, label: "1000-2000" },
+    { min: 2000, max: 3000, label: "2000-3000" },
+    { min: 3000, max: 4000, label: "3000-4000" },
+    { min: 4000, max: 5000, label: "4000-5000" },
+    { min: 5000, max: 6000, label: "5000-6000" },
   ];
 
   let priceLimit = $state(priceOptions[0]);
+
+  function isWithinPriceLimit(book: { price: number }) {
+    if (priceLimit.label === "All") return true;
+    return book.price >= priceLimit.min && book.price <= priceLimit.max;
+  }
   
 </script>
 
@@ -122,7 +125,7 @@
   </div>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {#each bookList.filter((book) => book.price >= priceLimit.min && book.price <= priceLimit.max) as book (book.id)}
+    {#each bookList.filter(isWithinPriceLimit) as book (book.id)}
       <BookCard {book} />
     {/each}
   </section>

@@ -10,7 +10,7 @@ export interface Book {
   title: string;
   author: string;
   price: number;
-  image: string;
+  image?: string;
 }
 
 export const books = writable<Book[]>([]);
@@ -50,6 +50,7 @@ export async function fetchBooks() {
     });
 
     const data = await response.json();
+    console.log("GRAPHQL RESPONSE:", data); // 👈 ADD THIS
     if (data.data?.books) {
       books.set(data.data.books);
     }

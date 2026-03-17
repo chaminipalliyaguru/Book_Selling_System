@@ -1,9 +1,37 @@
+// package db
+
+// import (
+// 	"backend/graph/model"
+
+// 	"gorm.io/driver/sqlite"
+// 	"gorm.io/gorm"
+// )
+
+// var DB *gorm.DB
+
+// func InitDB() {
+// 	var err error
+// 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+// 	if err != nil {
+// 		panic("Failed to connect to database")
+// 	}
+// 	DB = db
+// 	db.AutoMigrate(&model.Book{})
+// }
+
+// func GetDB() *gorm.DB {
+// 	return DB
+// }
+
+
+// db/db.go
+
 package db
 
 import (
-	"backend/graph/model"
+	"log"
 
-	"gorm.io/driver/sqlite"
+	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -11,15 +39,14 @@ var DB *gorm.DB
 
 func InitDB() {
 	var err error
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open("bookstore.db"), &gorm.Config{})
 	if err != nil {
-		panic("Failed to connect to database")
+		log.Fatal("Failed to connect to database: ", err)
 	}
-	DB = db
-	db.AutoMigrate(&model.Book{})
+
+	log.Println("Database connected successfully")
 }
 
 func GetDB() *gorm.DB {
 	return DB
 }
-

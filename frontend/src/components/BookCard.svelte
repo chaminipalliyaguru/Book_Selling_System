@@ -28,7 +28,7 @@
       class="absolute w-full h-full bg-white rounded-xl shadow-xl p-5 flex flex-col items-center text-center [backface-visibility:hidden] transition-all duration-500"
     >
       <img
-        src={book.image}
+        src={`http://localhost:8080/${book.image}`}
         alt={book.title}
         class="w-40 h-60 object-cover mb-4 rounded-md shadow-sm hover:scale-105 transition-transform duration-300"
       />
